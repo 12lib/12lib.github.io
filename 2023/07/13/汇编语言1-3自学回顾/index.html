@@ -33,9 +33,9 @@
 <meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.4.png">
 <meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/0.1.png">
 <meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.1.png">
-<meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.2.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/13/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.2.png">
 <meta property="article:published_time" content="2023-07-13T09:07:22.000Z">
-<meta property="article:modified_time" content="2023-07-14T06:32:06.836Z">
+<meta property="article:modified_time" content="2023-07-14T07:11:55.036Z">
 <meta property="article:author" content="y">
 <meta property="article:tag" content="study">
 <meta property="article:tag" content="汇编">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-14 14:32:06" itemprop="dateModified" datetime="2023-07-14T14:32:06+08:00">2023-07-14</time>
+                <time title="修改时间：2023-07-14 15:11:55" itemprop="dateModified" datetime="2023-07-14T15:11:55+08:00">2023-07-14</time>
               </span>
 
           
@@ -229,7 +229,7 @@
 <h2 id="第三章-寄存器（内存访问）"><a href="#第三章-寄存器（内存访问）" class="headerlink" title="第三章 寄存器（内存访问）"></a>第三章 寄存器（内存访问）</h2><h3 id="字"><a href="#字" class="headerlink" title="字"></a>字</h3><p>16位寄存器来存储一个字，高八位放高字节，低八位低字节遂需要两个连续地址，这两个连续地址构成的内存单元也称为字单元。某一地址的字单元存放的字节型数据为该地址及下一地址构成的连续地址的数据。<br>16根数据线可以一次性传输16位数据，字节型数据的传送可以在mov指令中给出一个16位的寄存器。也可以给一个8位的寄存器，改变某一地址，改变某一个字的高字节或低字节。<br>下图给出改变ax低字节的示例<br><img src="/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/0.1.png" alt="图片"></p>
 <h3 id="mov-amp-add-amp-sub"><a href="#mov-amp-add-amp-sub" class="headerlink" title="mov &amp; add &amp; sub"></a>mov &amp; add &amp; sub</h3><p>mov，可以理解为复制粘贴数据到存储空间，mov ax，bx即为复制bx粘贴到ax。<br>add，为加法，add ax，bx即为把bx的值加到ax上。<br>sub，为减法，sub ax，bx即为在ax上减去bx。<br>mov可以直接将数据放入寄存器，也可以让各个寄存器，内存单元互相放数据，但是不能将数据直接放入段寄存器。mov ax,[0]这个0默认为相对于ds寄存器的偏移地址。</p>
 <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是一种规划了长度的有特殊访问方式的存储空间，将一段内存定义为一个段作为栈段，其具有先进后出的特殊模式。栈的操作以字为单位，需要借助SS段寄存器和SP寄存器来完成，SS存放栈顶的段地址(最小地址)，SP存放偏移地址。以此来达到指向栈内有元素的最高位的效果。同样地址计算为SS*16+SP。<br>栈最基本的两个指令为出栈pop和入栈push，两个命令后面可以接寄存器，段寄存器或者内存单元(也就是类 pop [0])，push ax：SP&#x3D;SP-2 -&gt; 将ax内容存入此时SS:SP指向的内存单元，pop ax：将SS:SP指向的内容存入ax -&gt; SP&#x3D;SP+2。<br>在进行操作时，被pop或者push的地址总是SS:SP所指向的地址，所以pop和push对SP的改变先后不同，且是自动改变SP内容。同时由于只修改SP，所以栈顶的最大变化范围为0——FFFFH。<br>pop出栈其实也是一个类似于mov的效果，pop被出栈的地址的数据不会改变，之后在下一次该地址被push时被覆盖。<br>假设栈的空间为10000H——1000FH，空栈时SS:SP会指向栈空间最高地址的下一个单元，即10010H，SS为1000H，SP为0010H。栈满是指向空间的最低地址，即10000H，SP为0000H。<br>由于push和pop只是起到一个地址索引没有对地址惊醒一个限制，所以会导致栈顶超界的问题。比如当SS:SP已经指向栈的最大容量后继续push，就会导致栈规划段以外的地址的数据被覆盖，或者当SS:SP指向的数据已经是空栈状态，继续pop就会pop出其他非栈内数据。</p>
-<h3 id="实验2"><a href="#实验2" class="headerlink" title="实验2"></a>实验2</h3><p>中断机制，即在执行完当前任务后，可以检测到CPU中或外部的某种特殊信息，并立刻对此信息进行处理。<br>以下在debug中演示跳过显示修改SP的命令的过程（中断源是单步执行）。<br><img src="/./%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.1.png" alt="图片"><br><img src="/./%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.2.png" alt="图片"></p>
+<h3 id="实验2"><a href="#实验2" class="headerlink" title="实验2"></a>实验2</h3><p>中断机制，即在执行完当前任务后，可以检测到CPU中或外部的某种特殊信息，并立刻对此信息进行处理。<br>以下在debug中演示跳过显示修改SP的命令的过程（中断源是单步执行）。<br><img src="/./%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.1.png"><br><img src="./%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.2.png"/></p>
 
     </div>
 
