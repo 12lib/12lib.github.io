@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"librariany.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="汇编语言（第四版）1-3章自学的知识点小结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言1-3自学回顾">
+<meta property="og:url" content="http://librariany.cn/2023/07/13/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/index.html">
+<meta property="og:site_name" content="librarian">
+<meta property="og:description" content="汇编语言（第四版）1-3章自学的知识点小结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.1.png">
+<meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.2.png">
+<meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.3.png">
+<meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.4.png">
+<meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/0.1.png">
+<meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.1.png">
+<meta property="og:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.2.png">
+<meta property="article:published_time" content="2023-07-13T09:07:22.000Z">
+<meta property="article:modified_time" content="2023-07-14T06:32:06.836Z">
+<meta property="article:author" content="y">
+<meta property="article:tag" content="study">
+<meta property="article:tag" content="汇编">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://librariany.cn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.1.png">
+
+<link rel="canonical" href="http://librariany.cn/2023/07/13/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>汇编语言1-3自学回顾 | librarian</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">librarian</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://librariany.cn/2023/07/13/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="y">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="librarian">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          汇编语言1-3自学回顾
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-07-13 17:07:22" itemprop="dateCreated datePublished" datetime="2023-07-13T17:07:22+08:00">2023-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-14 14:32:06" itemprop="dateModified" datetime="2023-07-14T14:32:06+08:00">2023-07-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>   汇编语言（第四版）1-3章自学的知识点小结</p>
+<span id="more"></span>
+<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="CPU-amp-总线-amp-存储器"><a href="#CPU-amp-总线-amp-存储器" class="headerlink" title="CPU &amp; 总线 &amp;存储器"></a>CPU &amp; 总线 &amp;存储器</h3><p>CPU作为计算机的核心部件，控制整个计算机的运作并进行运算，运算所需的指令和数据储存在存储器中。而存储器被划分为若干个存储单元，每个存储单元从0开始编号，微型存储器的存储单元为一个字节，即八个二进制位。<br>CPU通过接口板控制外部设备，类似于音响等。<br>CPU读取存储单元地址，命令，数据都需要通过总线完成。总线是一根根导线的集合，从逻辑上分为地址总线，控制总线和数据总线。8根数据总线可以传递一个二进制数据。地址总线的宽度决定了CPU的寻址能力，数据总线，控制总线以此类推。<br>例如，1个CPU的寻址能力为8KB，那么它的地址总线宽度为2^13（也就是13根）。<br>存储器从读写属性上分为随机存储器（RAM）和只读存储器（ROM）。<br>随机存储器可读可写，但带电储存，只读存储器只读不写。<br>CPU在控制存储器时均将其作为内存看待，将其总的看作一个由储存单元构成的逻辑存储器，这个逻辑存储器也就是内存地址空间，每个物理存储器在其中占有一个地址段。</p>
+<h2 id="第二章-寄存器"><a href="#第二章-寄存器" class="headerlink" title="第二章 寄存器"></a>第二章 寄存器</h2><h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><p>一个典型的CPU由运算器，控制器，寄存器等期间构成，由总线连接。<br>8086CPU的所有寄存器都是16位，可以放两个字节，AX，BX，CX，DX存放一般性数据，被称为通用寄存器。<br>以AX为例，AX可以分为两个八位寄存器AH+AL，其中AL为低八位，AH为高八位（字一般由两个字节构成，前半为高八位）。<br>在汇编指令中寄存器名称不分大小写。在汇编指令中可以单独改写AH或者AL的值。</p>
+<h3 id="物理地址-amp-段"><a href="#物理地址-amp-段" class="headerlink" title="物理地址 &amp; 段"></a>物理地址 &amp; 段</h3><p>每个内存单元都有唯一的地址，这个唯一的地址被称为物理地址。8086是16位结构的CPU，但是有20位地址总线，所以8086CPU采用内部结合的方式用两个16位地址合成的方法形成一个20位的物理地址。<br>CPU提供两个16位的地址，一个位段地址，一个位偏移地址，输送进地址加法器。物理地址&#x3D;段地址*16+偏移地址。（计算方法也被称为左移四位，四位是基于数据的存储形式为二进制）（可以类比C语言的指针偏移，或者说C语言的指针偏移基于此）<br>段地址，其段并不是内存分段，而是由CPU划分，段地址是连续的内存单元，一个段的起始地址一定是16的倍数，其最大长度为64KB。例如给定段地址1000H,CPU的偏移地址寻址范围为10000H~1FFFFH。<br>段寄存器存放段地址，8086CPU有四个段寄存器：CS，DS，SS，ES。段寄存器无法直接导入数据，需要通过其他寄存器的中转达成。</p>
+<h3 id="CS-amp-IP"><a href="#CS-amp-IP" class="headerlink" title="CS &amp; IP"></a>CS &amp; IP</h3><p>CS和IP指定了当前CPU要读取命令的地址，CS为代码段寄存器，IP为指令指针寄存器。执行的指令为CS的内容*16+IP的内容（IP也可以理解为读取指令时的偏移值）。<br>命令执行的过程为：读取地址-&gt;地址加法器-&gt;读取指令进入指令缓冲区-&gt;IP值自动增加（读取指令长度为多少IP增加多少）-&gt;执行。<br>8086CPU刚开始工作时CS和IP被设置为CS&#x3D;FFFFH，IP&#x3D;0000H。<br>mov指令不能修改CS,IP的值，可以使用jmp指令进行修改，即：1）jmp 段地址:偏移地址 2）jmp 某一合法寄存器（用寄存器中的值修改IP）。<br>当我们需要将一组内存定义为一个代码段时，要将CS:IP指向所定义的代码段的第一条指令的首地址。</p>
+<h3 id="实验1"><a href="#实验1" class="headerlink" title="实验1"></a>实验1</h3><p>因为win11不支持debug所以需要我安装一个MS-DOS的虚拟机进行实验。<br>Debug的功能R（查看，改变CPU寄存器内容），D（查看内存内容），E（改写内存内容），U（机器指令翻译为汇编指令），T（执行一条机器指令），A（以汇编指令格式在内存写入一条机器指令）等。<br>下图为r，d演示（d的格式为：d 段地址:起始偏移地址 中止地址）<br><img src="/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.1.png" alt="图片"><br>下图为u演示<br><img src="/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.2.png" alt="图片"><br>下图为a，t演示<br><img src="/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.3.png" alt="图片"><br><img src="/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/1.4.png" alt="图片"></p>
+<h2 id="第三章-寄存器（内存访问）"><a href="#第三章-寄存器（内存访问）" class="headerlink" title="第三章 寄存器（内存访问）"></a>第三章 寄存器（内存访问）</h2><h3 id="字"><a href="#字" class="headerlink" title="字"></a>字</h3><p>16位寄存器来存储一个字，高八位放高字节，低八位低字节遂需要两个连续地址，这两个连续地址构成的内存单元也称为字单元。某一地址的字单元存放的字节型数据为该地址及下一地址构成的连续地址的数据。<br>16根数据线可以一次性传输16位数据，字节型数据的传送可以在mov指令中给出一个16位的寄存器。也可以给一个8位的寄存器，改变某一地址，改变某一个字的高字节或低字节。<br>下图给出改变ax低字节的示例<br><img src="/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/0.1.png" alt="图片"></p>
+<h3 id="mov-amp-add-amp-sub"><a href="#mov-amp-add-amp-sub" class="headerlink" title="mov &amp; add &amp; sub"></a>mov &amp; add &amp; sub</h3><p>mov，可以理解为复制粘贴数据到存储空间，mov ax，bx即为复制bx粘贴到ax。<br>add，为加法，add ax，bx即为把bx的值加到ax上。<br>sub，为减法，sub ax，bx即为在ax上减去bx。<br>mov可以直接将数据放入寄存器，也可以让各个寄存器，内存单元互相放数据，但是不能将数据直接放入段寄存器。mov ax,[0]这个0默认为相对于ds寄存器的偏移地址。</p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是一种规划了长度的有特殊访问方式的存储空间，将一段内存定义为一个段作为栈段，其具有先进后出的特殊模式。栈的操作以字为单位，需要借助SS段寄存器和SP寄存器来完成，SS存放栈顶的段地址(最小地址)，SP存放偏移地址。以此来达到指向栈内有元素的最高位的效果。同样地址计算为SS*16+SP。<br>栈最基本的两个指令为出栈pop和入栈push，两个命令后面可以接寄存器，段寄存器或者内存单元(也就是类 pop [0])，push ax：SP&#x3D;SP-2 -&gt; 将ax内容存入此时SS:SP指向的内存单元，pop ax：将SS:SP指向的内容存入ax -&gt; SP&#x3D;SP+2。<br>在进行操作时，被pop或者push的地址总是SS:SP所指向的地址，所以pop和push对SP的改变先后不同，且是自动改变SP内容。同时由于只修改SP，所以栈顶的最大变化范围为0——FFFFH。<br>pop出栈其实也是一个类似于mov的效果，pop被出栈的地址的数据不会改变，之后在下一次该地址被push时被覆盖。<br>假设栈的空间为10000H——1000FH，空栈时SS:SP会指向栈空间最高地址的下一个单元，即10010H，SS为1000H，SP为0010H。栈满是指向空间的最低地址，即10000H，SP为0000H。<br>由于push和pop只是起到一个地址索引没有对地址惊醒一个限制，所以会导致栈顶超界的问题。比如当SS:SP已经指向栈的最大容量后继续push，就会导致栈规划段以外的地址的数据被覆盖，或者当SS:SP指向的数据已经是空栈状态，继续pop就会pop出其他非栈内数据。</p>
+<h3 id="实验2"><a href="#实验2" class="headerlink" title="实验2"></a>实验2</h3><p>中断机制，即在执行完当前任务后，可以检测到CPU中或外部的某种特殊信息，并立刻对此信息进行处理。<br>以下在debug中演示跳过显示修改SP的命令的过程（中断源是单步执行）。<br><img src="/./%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.1.png" alt="图片"><br><img src="/./%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/2.2.png" alt="图片"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/study/" rel="tag"># study</a>
+              <a href="/tags/%E6%B1%87%E7%BC%96/" rel="tag"># 汇编</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/12/begin/" rel="prev" title="close & begin">
+      <i class="fa fa-chevron-left"></i> close & begin
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">第一章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-amp-%E6%80%BB%E7%BA%BF-amp-%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">CPU &amp; 总线 &amp;存储器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">第二章 寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80-amp-%E6%AE%B5"><span class="nav-number">2.2.</span> <span class="nav-text">物理地址 &amp; 段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CS-amp-IP"><span class="nav-number">2.3.</span> <span class="nav-text">CS &amp; IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C1"><span class="nav-number">2.4.</span> <span class="nav-text">实验1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">第三章 寄存器（内存访问）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97"><span class="nav-number">3.1.</span> <span class="nav-text">字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mov-amp-add-amp-sub"><span class="nav-number">3.2.</span> <span class="nav-text">mov &amp; add &amp; sub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">3.3.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C2"><span class="nav-number">3.4.</span> <span class="nav-text">实验2</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="y"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">y</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2023-03 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">y</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
