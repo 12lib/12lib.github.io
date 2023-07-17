@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"librariany.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="尝试写程序啦">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言4-6自学回顾">
+<meta property="og:url" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/index.html">
+<meta property="og:site_name" content="librarian">
+<meta property="og:description" content="尝试写程序啦">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/0.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.0.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.4.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.2.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.3.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/4.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.2.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.3.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.4.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.5.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.6.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.7.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.8.png">
+<meta property="article:published_time" content="2023-07-15T00:43:52.000Z">
+<meta property="article:modified_time" content="2023-07-17T09:21:46.239Z">
+<meta property="article:author" content="y">
+<meta property="article:tag" content="study">
+<meta property="article:tag" content="汇编">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/0.1.png">
+
+<link rel="canonical" href="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>汇编语言4-6自学回顾 | librarian</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">librarian</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://librariany.cn/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="y">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="librarian">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          汇编语言4-6自学回顾
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-07-15 08:43:52" itemprop="dateCreated datePublished" datetime="2023-07-15T08:43:52+08:00">2023-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-17 17:21:46" itemprop="dateModified" datetime="2023-07-17T17:21:46+08:00">2023-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>尝试写程序啦</p>
+<span id="more"></span>
+<h2 id="第4章"><a href="#第4章" class="headerlink" title="第4章"></a>第4章</h2><h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>需要用到的工具为文本编译器（如记事本，edit），汇编语言编译程序（进行编译，连接），执行已完成程序的工具程序。在文本程序中写出来的部分成为源程序文件，经过编译器则为可执行文件，也就是从asm到exe。<br>而由于edit和debug等在win11上被取消了，所以安装了dosbox，把相应的工具放在了和代码一个文件夹里。至于ms-dos的相应安装以及配置过程过于繁琐，个人比较推荐dosbox。</p>
+<h3 id="源程序"><a href="#源程序" class="headerlink" title="源程序"></a>源程序</h3><p>源程序文件中的所有内容被称为源程序，源程序之所以需要经过编译器才能执行原因有二，一为需要将程序翻译为机器码，二是源程序由汇编指令和伪指令组成，机器不会运行伪指令，而是编译器会运行。源程序执行后成为程序。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line"></span><br><span class="line">codesg segment</span><br><span class="line">       mov ax,0123h</span><br><span class="line">       mov bx,0456h</span><br><span class="line">       add ax,bx</span><br><span class="line"></span><br><span class="line">       mov ax,4c00h</span><br><span class="line">       int 21h</span><br><span class="line">codesg ends</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>其中<code>assume cs:codesg</code>，<code>codesg segment···codesg ends</code>，<code>end</code>是伪代码，有着不同的功能。<br><code>assume</code>含义为假设，在计算机中所有的内存是连续的，但是在cpu执行时内存被划分为了许多的段，用来存储不同作用的数据。而这里的假设就是假设内存中某个段和源程序中某个段相关联。这个示例中则是让codesg与cs寄存器相联系。<br><code>codesg segment ··· codesg ends</code>这是俩称多使用的伪指令，用于定义一个段，可以是代码，数据，栈等用处的段。codesg则为改段的名称，名称在被编译连接程序处理后作为一个段的地址。segment时开始的标志，ends是段结尾的标志。一个有意义的汇编程序，至少需要一个段。<br><code>end</code>作为程序结束的标志，在编译器编译到end时会停止编译。<br>在汇编源程序中，数据不能以字母开头，比如A000h要写作0A000h。</p>
+<h3 id="编译-连接-执行"><a href="#编译-连接-执行" class="headerlink" title="编译 连接 执行"></a>编译 连接 执行</h3><p>在写好源程序之后会得到一个以asm为后缀的文件，对这个文件进行编译，我使用的时masm配置到dosbox里面的在界面内输入<code>masm 名称.asm</code>如果文件不在所显示的路径中要补充路径。在这之后会有三个回车的确认，第一个是确认asm的文件名，第二个是确认后续连接使用的obj后缀的文件名，第三个是生成的列表文件，第三个回车其实是确认不生成这个中间文件。在这里会有报错提醒，具体定位到源程序文件的行。<br>连接使用的是link，连接会生成可执行文档，同时也会在这一步将包含子函数的库函数该程序进行连接，方便调用。连接的操作则是<code>link 名称.obj</code>，第一个确认是输入的文件名（我的link或许是版本问题，没有这一步），第二个是输出的exe文件名，第三个映像文件（将一系列文件做成单一格式方便下载的文件）同样是中间结果，可以不输出，第四个是连接库函数（我的例子中不需要库函数所以为空），此处的warning不影响后续使用，具体原因学会了补充。<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/0.1.png"><br>执行时需要有一个程序来让我们的程序执行，也就是可执行文件在加载后需要一个程序将CPU的控制权交给该文件，才能让文件得到执行，并且在执行后将CPU的控制权交还，结束执行。而这个交还控制权的操作叫做程序返回。<br>程序返回的实现靠的是源程序中的两条指令。<code>mov ax,4c00h  int 21h</code>，在上面的代码的例子中，这两条指令没有在程序对数据的处理中起作用，他们的作用就体现在了程序返回上。在dos系统上这个让可执行文件执行的文件即为command.com，command根据文件名找到可执行文件后将文件中的程序加载入内存，设置CS:IP指向该程序的入口，随后CPU开始运行该程序，程序结束后又返回command。debug也是由command载入，并在调试结束后返回command。<br>加载程序时会将程序载入一个连续的段内，但是程序的代码与段首有256个字节的距离，这段距离被称为PSP区，主要作用是让dos和被加载系统通讯。</p>
+<h3 id="实验3"><a href="#实验3" class="headerlink" title="实验3"></a>实验3</h3><p>用debug跟进一个程序，查看寄存器内容，栈顶的内容，以及PSP的内容。<br>指令一览<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.0.png"><br>查看ds的存储内容可以发现在代码储存空间的段首是以CD 20开头的PSP<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.4.png"><br>此处因为<code>mov sp,10</code>，所以sp值改变<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.1.png"><br>因为ax，bx值均为0所以ss:sp指向的区域一致在增减00。<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.2.png"><br>在<code>int 21h</code>即将执行时需要用p指令来结束程序<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/3.3.png"></p>
+<h2 id="第5章"><a href="#第5章" class="headerlink" title="第5章"></a>第5章</h2><h3 id="bx-amp-段前缀"><a href="#bx-amp-段前缀" class="headerlink" title="[bx] &amp; 段前缀"></a>[bx] &amp; 段前缀</h3><p>[bx]类似于[0]，表示偏移地址，段地址默认为ds。<br>在masm中[1]会被直接作为1，而在debug中会作为[1]进行执行，所以为了在汇编源程序中达到偏移地址的效果，只能用[bx]作为中转，例如 <code>mov ax,[1]</code>需变更为<code>mov bx,1 ；mov ax,[bx]</code>或者标注段寄存器<code>mov ax,ds:[1]</code>。<br>类似于<code>mov ax,ds:[1]</code>的写法还可以拓展到各个访问内存单元的段地址中，ds，cs，ss，es等，类似于<code>mov ax,ss:[bx]</code>这种写法称之为段前缀。<br>需要注意的是有些空间是dos在使用，占用这些空间会造成死机等后果，而dos和其他合法程序一般不会使用0:200-0:2ff的256个字节空间，较为安全，可以用debug查询存储内容以确认安全性。</p>
+<h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><p>loop的作用可以理解为控制循环，进行的操作有两步：cx&#x3D;cx-1 -&gt; 判断cx值是否为零，否在跳转回标记处，是则退出循环。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">    mov ax,2</span><br><span class="line">    mov cx,11</span><br><span class="line"></span><br><span class="line"> s: add ax,ax</span><br><span class="line">    loop s</span><br><span class="line"></span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>这段代码中的s即为loop指令的标记，cx表示循环执行次数为11次。<br>在debug中可以用p命令将循环一次执行完，用g 加偏移地址可以直接从此处执行到指定地址，类g 0012h。</p>
+<h3 id="实验4"><a href="#实验4" class="headerlink" title="实验4"></a>实验4</h3><p>主要是[bx]以及loop的运用。<br>以下是向内存0:200-0:23F一次传送数据0-63(3fh)。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">    mov bx,0020h</span><br><span class="line">    mov ds,bx</span><br><span class="line">    mov ax,0h</span><br><span class="line">    mov cx,64</span><br><span class="line"></span><br><span class="line"> s: mov [ax],al      //用al是因为这里的地址要求按字节传送数据，ax会覆盖 </span><br><span class="line">    inc al</span><br><span class="line">    loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>以下是将<code>mov ax,4cooh</code>之前的指令复制到内存0:200处。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">    mov ax,cs        //cs是代码的起点</span><br><span class="line">    mov ds,ax</span><br><span class="line">    mov ax,0020h    </span><br><span class="line">    mov es,ax</span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,17h      //这里的17h是在试验后得出的</span><br><span class="line"></span><br><span class="line"> s: mov al,[bx]      </span><br><span class="line">    mov es:[bx],al  </span><br><span class="line">    inc bx</span><br><span class="line">    loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>debubg可以查看到这个代码的全场为cx的初始值，用u可以看到最后两行也就是int 21h那两行的地址，由此可以得到需要复制的代码的长度，则为17h。如下图<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/4.1.png"></p>
+<h2 id="第6章"><a href="#第6章" class="headerlink" title="第6章"></a>第6章</h2><h3 id="定义不同段"><a href="#定义不同段" class="headerlink" title="定义不同段"></a>定义不同段</h3><p>需要用到数据时我们需要在汇编源文件定义这些数据，经过编译，连接后作为程序的一部分写到可执行文件中，这样在程序被载入内存时，数据也获得了存储空间。可以在代码段中定义，比如在用<code>dw 0123h,0456h</code>，dw的意思是定义字型数据。同时也可以在代码段外定义一个新的段，同样用segment标识，还需要在assume标出。<br>也可以定义栈，类<code>dw 0,0,0一共16个0</code>，定义后将获得16个字型数据的空间，在程序中设置ss和sp就可以作为栈来使用。<br>在设置了其他段的情况下，执行代码需要将IP调偏移地址到代码所在，或者用start作为标志。并且在end处标明,end除了通知编译器程序结束以外还可以通知编译器程序的入口在哪里。在编译，连接以后由end start指明的程序入口被转化为一个入口地址，存储在可执行文件的描述信息里面。引用段的地址需要先将地址放入寄存器再mov。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line">.....</span><br><span class="line">code segment</span><br><span class="line">    dw...</span><br><span class="line">start:</span><br><span class="line">.....</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">emd start</span><br></pre></td></tr></table></figure>
+<h3 id="实验5"><a href="#实验5" class="headerlink" title="实验5"></a>实验5</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line">data segment</span><br><span class="line">    dw 0123h,0456h,0789h,0abch,0defh,0cbah,0987h</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">    dw 0,0,0,0,0,0,0,0</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">starts: mov ax,stack</span><br><span class="line">        mov ss,ax</span><br><span class="line">        mov sp,16</span><br><span class="line"></span><br><span class="line">        mov ax,data</span><br><span class="line">        mov ds,ax</span><br><span class="line"></span><br><span class="line">        push ds:[0]</span><br><span class="line">        push ds:[2]</span><br><span class="line">        pop ds:[2]</span><br><span class="line">        pop ds:[0]</span><br><span class="line"></span><br><span class="line">        mov ax,4c00h</span><br><span class="line">        int 21h</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end starts</span><br></pre></td></tr></table></figure>
+<p>确定以CD 20开头的PSP的位置,在100h的偏移以后就是data了<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.1.png"><br>栈的定义，不仅需要先占据内存，还要在程序中赋值SS，SP<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.2.png"><br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.3.png"><br>pop和push改变栈内容实录<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.4.png"><br>程序返回前ss，cs，ds的内容<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.5.png"><br>下一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"> </span><br><span class="line">data segment</span><br><span class="line">    dw 0123h,0456h</span><br><span class="line">data ends</span><br><span class="line"> </span><br><span class="line">stack segment</span><br><span class="line">    dw 0,0</span><br><span class="line">stack ends</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">    mov ax,stack      </span><br><span class="line">    mov ss,ax</span><br><span class="line">    mov sp,16         </span><br><span class="line"> </span><br><span class="line">    mov ax,data       </span><br><span class="line">    mov ds,ax</span><br><span class="line"> </span><br><span class="line">    push ds:[0]</span><br><span class="line">    push ds:[2]</span><br><span class="line">    pop ds:[2]</span><br><span class="line">    pop ds:[0]</span><br><span class="line"> </span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>这里的data只给了俩，但是分配内存仍然是16位<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.6.png"><br>下一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">a segment</span><br><span class="line">    db 1,2,3,4,5,6,7,8</span><br><span class="line">a ends</span><br><span class="line"> </span><br><span class="line">b segment</span><br><span class="line">    db 1,2,3,4,5,6,7,8</span><br><span class="line">b ends</span><br><span class="line"> </span><br><span class="line">c segment</span><br><span class="line">    db 0,0,0,0,0,0,0,0</span><br><span class="line">c ends</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">    mov ax,a</span><br><span class="line">    mov es,ax</span><br><span class="line">    mov ax,c</span><br><span class="line">    mov ds,ax</span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,8</span><br><span class="line"></span><br><span class="line">s1: mov ax,es:[bx]</span><br><span class="line">    mov [bx],ax </span><br><span class="line">    add bx,2</span><br><span class="line">    loop s1</span><br><span class="line"></span><br><span class="line">    mov ax,b</span><br><span class="line">    mov es,ax</span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,8</span><br><span class="line"></span><br><span class="line">s2: mov ax,es:[bx]</span><br><span class="line">    add [bx],ax</span><br><span class="line">    add bx,2</span><br><span class="line">    loop s2    </span><br><span class="line"></span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>这里经过了三次循环，主要是为了将a，b段的诗句加在一起保存到c段，有够繁琐的这题，如下图标的就是最后的内容，确实是相加成功了<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.7.png"><br>下一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">a segment</span><br><span class="line"></span><br><span class="line">    dw 1,2,3,4,5,6,7,8</span><br><span class="line"></span><br><span class="line">a ends</span><br><span class="line"></span><br><span class="line">b segment</span><br><span class="line"></span><br><span class="line">    dw 0,0,0,0,0,0,0,0</span><br><span class="line"></span><br><span class="line">b ends</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line"> </span><br><span class="line">start:  mov ax,b</span><br><span class="line">        mov ss,ax</span><br><span class="line">        mov sp,16</span><br><span class="line">	mov ax,a</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov ax,0</span><br><span class="line">	mov cx,8</span><br><span class="line">       </span><br><span class="line">	</span><br><span class="line">     s: push [bx]  .这里只能用bx，不能用ax</span><br><span class="line">        add bx,2</span><br><span class="line">	loop s</span><br><span class="line">    </span><br><span class="line">        mov ax,4c00h</span><br><span class="line">        int 21h</span><br><span class="line"> </span><br><span class="line">code ends</span><br><span class="line"> </span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>这里用栈的方法做一个逆序，原数据没变，定义的栈是倒序后的结果，定义的段在内存的顺序也是按照定义的顺序来的，偏移的地址也可以按定义顺序计算。<br><img src="/2023/07/15/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%804-6/5.8.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/study/" rel="tag"># study</a>
+              <a href="/tags/%E6%B1%87%E7%BC%96/" rel="tag"># 汇编</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/13/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801-3%E8%87%AA%E5%AD%A6%E5%9B%9E%E9%A1%BE/" rel="prev" title="汇编语言1-3自学回顾">
+      <i class="fa fa-chevron-left"></i> 汇编语言1-3自学回顾
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC4%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">第4章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">源程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-%E8%BF%9E%E6%8E%A5-%E6%89%A7%E8%A1%8C"><span class="nav-number">1.3.</span> <span class="nav-text">编译 连接 执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C3"><span class="nav-number">1.4.</span> <span class="nav-text">实验3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC5%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">第5章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bx-amp-%E6%AE%B5%E5%89%8D%E7%BC%80"><span class="nav-number">2.1.</span> <span class="nav-text">[bx] &amp; 段前缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loop"><span class="nav-number">2.2.</span> <span class="nav-text">loop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C4"><span class="nav-number">2.3.</span> <span class="nav-text">实验4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC6%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">第6章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%8D%E5%90%8C%E6%AE%B5"><span class="nav-number">3.1.</span> <span class="nav-text">定义不同段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C5"><span class="nav-number">3.2.</span> <span class="nav-text">实验5</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="y"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">y</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2023-03 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">y</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
