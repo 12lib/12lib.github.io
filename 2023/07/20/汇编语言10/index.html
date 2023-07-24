@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"librariany.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="摸鱼的进度确实不太行呢">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言10-12自学回顾">
+<meta property="og:url" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/index.html">
+<meta property="og:site_name" content="librarian">
+<meta property="og:description" content="摸鱼的进度确实不太行呢">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/10.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/10.2.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/10.3.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/0.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/11.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/2.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/12.1.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/12.3.png">
+<meta property="og:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/12.2.png">
+<meta property="article:published_time" content="2023-07-20T02:48:40.000Z">
+<meta property="article:modified_time" content="2023-07-24T10:11:06.626Z">
+<meta property="article:author" content="y">
+<meta property="article:tag" content="study">
+<meta property="article:tag" content="汇编">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/10.1.png">
+
+<link rel="canonical" href="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>汇编语言10-12自学回顾 | librarian</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="librarian" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">librarian</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://librariany.cn/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="y">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="librarian">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          汇编语言10-12自学回顾
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-07-20 10:48:40" itemprop="dateCreated datePublished" datetime="2023-07-20T10:48:40+08:00">2023-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-24 18:11:06" itemprop="dateModified" datetime="2023-07-24T18:11:06+08:00">2023-07-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>摸鱼的进度确实不太行呢</p>
+<span id="more"></span>
+<h2 id="第10章"><a href="#第10章" class="headerlink" title="第10章"></a>第10章</h2><h3 id="ret-amp-retf-amp-call"><a href="#ret-amp-retf-amp-call" class="headerlink" title="ret &amp; retf &amp; call"></a>ret &amp; retf &amp; call</h3><p>ret指令可以用栈中的数据修改IP内容，retf则可以用栈中数据修改CS和IP从而实现转移。操作也就相当于令ip和cs等于栈顶元素然后再将栈顶元素出栈。<br>call指令也是跳转指令，先将ip或者cs和ip压入栈（先cs后ip）再转移到指定的偏移地址。而这个偏移位移&#x3D;标号处的地址减去call后第一个指令的地址。也就是先把call指令放入缓存区将当前ip移到下一条指令后执行转移。<br>格式有：call 16位寄存器 入栈ip；call far ptr 标号 入栈cs,ip段间转移；call word ptr 内存单元地址 入栈ip；call dword ptr 内存单元地址 入栈cs，ip。<br>可以通过call一个标识，在标识内写入函数，并在最后通过ret返回的方式以栈作为中转来实现函数调用。</p>
+<h3 id="mul"><a href="#mul" class="headerlink" title="mul"></a>mul</h3><p>mul是乘法指令，格式为：mul reg ，两个相乘的需要是两哥位数相同的寄存器，如果是8位默认将给出的寄存器与al相乘，16位则是和ax相乘。8位的结果保存在ax中，16位低位在ax高位在dx。</p>
+<h3 id="实验10"><a href="#实验10" class="headerlink" title="实验10"></a>实验10</h3><p>1.显示字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">data segment</span><br><span class="line">	db &#x27;Welcome to masm!&#x27;,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:  mov dh,15   ;8行太靠前了</span><br><span class="line">	mov dl,25       ;3列也是</span><br><span class="line">	mov cl,2        ;决定字的样式</span><br><span class="line">	mov ax,data</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,0</span><br><span class="line">	call show_str</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">show_str:       </span><br><span class="line">	push ax        ;在子函数中调用寄存器的时候为了避免寄存器冲突，全部入栈一遍</span><br><span class="line">	push bx</span><br><span class="line">	push cx</span><br><span class="line">	push dx</span><br><span class="line">	push es</span><br><span class="line">	push si</span><br><span class="line">	push di</span><br><span class="line"></span><br><span class="line">	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	</span><br><span class="line">	mov al,160</span><br><span class="line">	mul dh</span><br><span class="line">	mov bx,ax</span><br><span class="line">	mov al,2</span><br><span class="line">	mul dl</span><br><span class="line">	add bx,ax</span><br><span class="line"></span><br><span class="line">	mov al,cl</span><br><span class="line">	mov ch,0</span><br><span class="line">	mov di,0</span><br><span class="line"></span><br><span class="line">showc:  mov cl,ds:[si]</span><br><span class="line">	jcxz ok</span><br><span class="line">	mov es:[bx+di],cl</span><br><span class="line">	mov es:[bx+di+1],al</span><br><span class="line">	inc si</span><br><span class="line">	add di,2</span><br><span class="line">	jmp short showc</span><br><span class="line"></span><br><span class="line">ok:     pop di</span><br><span class="line">	pop si</span><br><span class="line">	pop es</span><br><span class="line">	pop dx</span><br><span class="line">	pop cx</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	ret</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>效果如下<br><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/10.1.png"><br>2.解决除法溢出，将除法分解为高低位分别计算: x&#x2F;n&#x3D;int(高位&#x2F;n)<em>65536+(rem(高位&#x2F;n</em>65536)+低位)&#x2F;n</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line"></span><br><span class="line">codesg segment</span><br><span class="line">start:  mov ax,4240h</span><br><span class="line">	mov dx,00fh</span><br><span class="line">	mov cx,0ah</span><br><span class="line">	call divdw</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">divdw:  mov bx,ax</span><br><span class="line">	mov ax,dx</span><br><span class="line">	mov dx,0</span><br><span class="line">	div cx      ;高位部分的除法，商本来就在高位存放，余数在低位继续除法</span><br><span class="line">	mov si,ax   ;ax存储商dx存储余数</span><br><span class="line"></span><br><span class="line">	mov ax,bx   ;重新把低位给放回ax和上一次除法储存在dx的余数作为高位完成除法</span><br><span class="line">	div cx</span><br><span class="line"></span><br><span class="line">	mov cx,dx   ;cx存放余数，dx高位，ax低位</span><br><span class="line">	mov dx,si</span><br><span class="line"></span><br><span class="line">	ret</span><br><span class="line">codesg ends  </span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>效果如下<br><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/10.2.png"><br>3.数值显示，把数据段的数据以十进制显示出来，通过除法转化为十进制，再对照ASCII码表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">db 10 dup (0)</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:  </span><br><span class="line">    mov ax,12666    ;作为例子的数据</span><br><span class="line">	mov bx,data         ;存放处理后数据的空间</span><br><span class="line">	mov ds,bx</span><br><span class="line">	mov si,0</span><br><span class="line">	call dtoc           ;转化为十进制</span><br><span class="line"></span><br><span class="line">	mov dh,8            ;显示的位置和样式</span><br><span class="line">	mov dl,3</span><br><span class="line">	mov cl,2</span><br><span class="line">	call show_str</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">dtoc:                   </span><br><span class="line">    push ax             ;在开始转化前的压栈</span><br><span class="line">	push bx</span><br><span class="line">	push si</span><br><span class="line">	push di</span><br><span class="line">	mov di,0</span><br><span class="line">	mov bx,10</span><br><span class="line">	</span><br><span class="line">ahhhh:  </span><br><span class="line">    mov dx,0</span><br><span class="line">	div bx</span><br><span class="line">	add dx,30h</span><br><span class="line">	push dx</span><br><span class="line">	mov cx,ax</span><br><span class="line">	inc di</span><br><span class="line">	jcxz okk</span><br><span class="line">	jmp short ahhhh</span><br><span class="line"></span><br><span class="line">okk:    </span><br><span class="line">    mov cx,di</span><br><span class="line">okkk:	</span><br><span class="line">    pop ax</span><br><span class="line">	mov [si],al</span><br><span class="line">	inc si</span><br><span class="line">	loop okkk</span><br><span class="line">	pop di</span><br><span class="line">	pop si</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	ret                    ;dotc结束</span><br><span class="line"></span><br><span class="line">show_str:</span><br><span class="line">	push ax</span><br><span class="line">	push bx</span><br><span class="line">	push cx</span><br><span class="line">	push dx</span><br><span class="line">	push es</span><br><span class="line">	push si</span><br><span class="line">	push di</span><br><span class="line"></span><br><span class="line">	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	</span><br><span class="line">	mov al,160</span><br><span class="line">	mul dh</span><br><span class="line">	mov bx,ax</span><br><span class="line">	mov al,2</span><br><span class="line">	mul dl</span><br><span class="line">	add bx,ax</span><br><span class="line"></span><br><span class="line">	mov al,cl</span><br><span class="line">	mov ch,0</span><br><span class="line">	mov di,0</span><br><span class="line"></span><br><span class="line">showc:  </span><br><span class="line">    mov cl,ds:[si]          ;循环来逐字移动到显示的内存区域</span><br><span class="line">	jcxz ok</span><br><span class="line">	mov es:[bx+di],cl</span><br><span class="line">	mov es:[bx+di+1],al</span><br><span class="line">	inc si</span><br><span class="line">	add di,2</span><br><span class="line">	jmp short showc</span><br><span class="line"></span><br><span class="line">ok:    </span><br><span class="line">    pop di</span><br><span class="line">	pop si</span><br><span class="line">	pop es</span><br><span class="line">	pop dx</span><br><span class="line">	pop cx</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	ret</span><br><span class="line">	</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>效果图如下,显示区貌似是直接覆盖的所以多刷了一些回车变成空白页好看一点<br><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/10.3.png"><br>课程设计1的内容主要参考的网上的代码，在自己写的时候反而不停的发现实验七的代码有问题，所以干脆换成了网上看见的另一个结构或者说思路的数据整理顺序，这里就不贴了。</p>
+<h2 id="第11章"><a href="#第11章" class="headerlink" title="第11章"></a>第11章</h2><h3 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h3><p>标志寄存器用于储存某些指令的执行结果，控制CPU的相关工作方式，按位起作用比如8086CPU的flag寄存器从0到15位中，1，3，5，12，13，14，15均没有作用其他有内容的标志位分别是cf，pf，af，zf，sf，df，of，在debug中有体现<br>zf，零标志位，执行相关指令后结果为0则该标志位内容为1.debug中zr为1，nz为0.<br>pf，奇偶标志位，执行后储存结果的寄存器bit位中1的个数位偶数则为1.debug中pe为1，po为0.<br>sf，符号标志位，执行后结果为负则为1.debug中ng为1，pl为0.<br>cf，进位符号位，无符号运算时向更高位进位或者借位的值则为1.debug中cy为1，nc为0.<br>of，溢出标志位，有符号运算时超出机器表达范围就将产生溢出。debug中ov为1，nv为0.<br>df，方向标志位，控制每次操作后si，di的增减，减少则为1.debug中dn为1，up为0.<br><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/0.1.png"></p>
+<h1 id="相关指令"><a href="#相关指令" class="headerlink" title="相关指令"></a>相关指令</h1><p>adc是带进位的加法指令，比如 adc ax，3也就是ax&#x3D;ax+3+cf。<br>sbb是带借位减法指令，比如sbb ax，bx 也就是ax&#x3D;ax-bx-cf。<br>cmp是比较指令，相当于减法，不保留结果，只影响标志寄存器的内容<br>转移指令，je（等于则转移，zf&#x3D;1）；jne（不等于，zf&#x3D;0）；jb（低于，cf&#x3D;1）；jnb（不低于，cf&#x3D;0）；ja（高于，cf&#x3D;0且zf&#x3D;0）；jna（不高于，cf&#x3D;1或zf&#x3D;1）.<br>movsb串传送命令，操作为把ds偏移si的内容给es偏移di，而后根据df的值来让si和di减小1或增加1.movsw则为增加或减少2.而同时cld可以将df设置为0，std则为1.<br>rep指令会根据cx的值重复执行后面的串传送指令，可以将rep和movsb一起用来转移或者说复制代码到另一个地方，类rep movsb。<br>pushf将标志寄存器内容压栈，poopf将标志寄存器内容出栈。</p>
+<h2 id="实验11"><a href="#实验11" class="headerlink" title="实验11"></a>实验11</h2><p>把以0结尾的字符串中的小写字母转变为大写字母。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line"></span><br><span class="line">datasg segment</span><br><span class="line">	db &quot;Beginner&#x27;s All-purpose Symbolic Instruction Code.&quot;,0</span><br><span class="line">datasg ends</span><br><span class="line"></span><br><span class="line">codesg segment</span><br><span class="line">start:  mov ax,datasg</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,0</span><br><span class="line">	call letterc</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">letterc:push cx</span><br><span class="line">	mov ch,0</span><br><span class="line"></span><br><span class="line">  s:    mov cl,[si] </span><br><span class="line">	jcxz okk</span><br><span class="line">	</span><br><span class="line">	cmp cl,97    ;97和122为小写字母的范围，如果不在范围则跳转inc si进入下一个字母的循环</span><br><span class="line">	jb ok</span><br><span class="line">	cmp cl,122</span><br><span class="line">	ja ok</span><br><span class="line"></span><br><span class="line">	and cl,11011111b</span><br><span class="line">	mov [si],cl</span><br><span class="line"></span><br><span class="line">  ok:   inc si</span><br><span class="line">	jmp short s</span><br><span class="line">  </span><br><span class="line">  okk:  pop cx</span><br><span class="line">	ret</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/11.1.png"></p>
+<h2 id="第12章"><a href="#第12章" class="headerlink" title="第12章"></a>第12章</h2><h3 id="内中断的产生和处理"><a href="#内中断的产生和处理" class="headerlink" title="内中断的产生和处理"></a>内中断的产生和处理</h3><p>中断也就是CPU在接收到信号后立即对该信号后不继续执行正在执行的程序，转而多信号进行处理，而这个信号被称为中断信息。<br>内中断的中断源有以下四种：除法错误（溢出等），单步执行，执行into指令，执行interesting指令。中断源发出的中断信息中必须包含识别来源的编码，终端类型码为一个字节型数据，可以表示256种中断信息的来源。而根据这个码在内存中的中断向量表找到对应的中断向量，进而通过中断向量前往中断处理程序。对于8086pc机而言中断向量表指定存放在内存地址为0的位置从0000：0000到0000：03FF的1024个单元中存放着中断向量表，但事实上没有这么多的中断向量，部分内存是闲置的。<br>在处理内中断信息时考虑到需要返回继续执行未执行完的代码，所以会在进入处理程序前先保存原本的cs和ip，保存处理程序需要使用的寄存器的值等再处理。完整过程为获得中断码-&gt;标志内存器入栈-&gt;将标志内存器的第8.9位的TF和IF设置为0-&gt;cs，ip先后入栈-&gt;从内存地址为中断类型码<em>4和中断类型码</em>4+2的内存地址读取中断处理程序的入口的ip和cs（<em>4和</em>4+2是因为每个类型都需要两个低位字节存ip两个高位存cs，且完全按照中断码编号分配内存）-&gt;保存用到的寄存器，处理中断，恢复寄存器，iret指令（相当于pop ip，pop cs，popf）返回</p>
+<h3 id="中断处理实例"><a href="#中断处理实例" class="headerlink" title="中断处理实例"></a>中断处理实例</h3><p>除法错误比如溢出时会显示divide overflow作为提醒，显示后返回操作系统中，debug时也就是直接退出debug。<br>单步中断，就好像debug的t命令，再执行t命令时debug会将TF设置为1，再CPU执行完该指令后引发单步中断，再将tf置为0，再执行中断处理程序，所有寄存器内容会被显示在屏幕上。这个时候再回过头看一下在一般执行中断程序前的tf&#x3D;0的步骤有了解释。<br>在响应中断处理时需要注意如果正在设置ss的数据而未设置sp将无法进行中断，因为在中断程序中需要往栈内压入内容但是如果仅设置ss，无法指向一个正确的栈顶。所以在设置ss和sp时需要紧接着设置不然无法中断。回看实验二的内容，为什么那一条指令（mov sp,10）没有显示执行过程。正是因为无法中断。<br><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/2.1.png"><br>###实验12<br>编写0号中断的处理程序，不知道要怎么调试所以看网上的往里面塞了一段溢出的代码作为调试得到的效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">    mov ax,cs                       ;以下到call之前都是安装部分</span><br><span class="line">	mov ds,ax                       ;这里是将0号的中断处理程序复制到0：200h处</span><br><span class="line">	mov si,offset do0</span><br><span class="line">	mov ax,0</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,200h</span><br><span class="line">	mov cx,offset do0end-offset do0 ;直接通过减法得到程序的大小</span><br><span class="line">	cld                             ;设置传输方向为正</span><br><span class="line">	rep movsb                       </span><br><span class="line"></span><br><span class="line">	mov ax,0                        ;将0号中断向量更改为指向本程序编写的地址</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov word ptr es:[0*4],200h</span><br><span class="line">	mov word ptr es:[0*4+2],0</span><br><span class="line"></span><br><span class="line">	call mytest</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">    mov ax,4c00H</span><br><span class="line">    int 21H</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  do0:  jmp short do0start          ;相当于被打包的行李，通过前面的安装程序放到了内存中</span><br><span class="line">	db &quot;divide error!&quot;              ;作为数据不好放在其他地方会被覆盖，所以一起打包了，但是没法执行所以前面jmp掉了</span><br><span class="line"></span><br><span class="line">do0start:</span><br><span class="line">    push ax                         ;在中断处理程序也需要保存备份</span><br><span class="line">    push es</span><br><span class="line">    push di</span><br><span class="line">    push ds</span><br><span class="line">    push si</span><br><span class="line">    push cx</span><br><span class="line"></span><br><span class="line">    mov ax,cs                       ;找到需要输出的字符的位置</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,202h</span><br><span class="line">	</span><br><span class="line">	mov ax,0b800h                   ;显示出来的步骤</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,12*160+36*2</span><br><span class="line"></span><br><span class="line">	mov cx,13</span><br><span class="line"></span><br><span class="line">  s:</span><br><span class="line">    mov al,[si]</span><br><span class="line">	mov es:[di],al</span><br><span class="line">	inc si</span><br><span class="line">	add di,2</span><br><span class="line">	loop s</span><br><span class="line"></span><br><span class="line">    pop cx</span><br><span class="line">    pop si</span><br><span class="line">    pop ds</span><br><span class="line">    pop di</span><br><span class="line">    pop es</span><br><span class="line">    pop ax</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h                    ;作为一个完整的程序需要结束语</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">mytest:          ;调试程序</span><br><span class="line">    push ax</span><br><span class="line">    push bx</span><br><span class="line"> </span><br><span class="line">    mov ax,1000H    </span><br><span class="line">    mov bl,1H </span><br><span class="line">    div bl      ;产生除法溢出，触发0号中断</span><br><span class="line"> </span><br><span class="line">    pop bx</span><br><span class="line">    pop ax</span><br><span class="line"> </span><br><span class="line">    ret</span><br><span class="line"></span><br><span class="line">do0end:nop</span><br><span class="line">code ends</span><br><span class="line">end start</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>效果图如下<br><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/12.1.png"><br>我想起来我可以直接看es的内容，所以把那个调试部分删除了，代码基本没变效果图如下，第一张是未变更状态，第二张是执行后<br><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/12.3.png"><br><img src="/2023/07/20/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%8010/12.2.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/study/" rel="tag"># study</a>
+              <a href="/tags/%E6%B1%87%E7%BC%96/" rel="tag"># 汇编</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/18/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%807-9/" rel="prev" title="汇编语言7-9自学回顾">
+      <i class="fa fa-chevron-left"></i> 汇编语言7-9自学回顾
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC10%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">第10章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ret-amp-retf-amp-call"><span class="nav-number">1.1.</span> <span class="nav-text">ret &amp; retf &amp; call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mul"><span class="nav-number">1.2.</span> <span class="nav-text">mul</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C10"><span class="nav-number">1.3.</span> <span class="nav-text">实验10</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC11%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">第11章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">标志寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-number"></span> <span class="nav-text">相关指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C11"><span class="nav-number">1.</span> <span class="nav-text">实验11</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC12%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">第12章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BA%A7%E7%94%9F%E5%92%8C%E5%A4%84%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">内中断的产生和处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">中断处理实例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="y"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">y</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="">
+    <a target="_blank" class="social-link" href="/atom.xml" style="color: burlywood;">
+      <span class="icon">
+        <i class="fa fa-rss"></i>
+      </span>
+      <span class="label">RSS</span>
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2023-03 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">y</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
