@@ -6,7 +6,7 @@
   <link href="http://librariany.cn/atom.xml" rel="self"/>
   
   <link href="http://librariany.cn/"/>
-  <updated>2023-08-21T10:56:26.709Z</updated>
+  <updated>2023-09-28T11:29:40.869Z</updated>
   <id>http://librariany.cn/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>经典复现之扫雷</title>
+    <link href="http://librariany.cn/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/"/>
+    <id>http://librariany.cn/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/</id>
+    <published>2023-09-28T11:29:40.000Z</published>
+    <updated>2023-09-28T11:29:40.869Z</updated>
+    
+    <content type="html"><![CDATA[<p>上半部分为找到扫雷的地图，也就是炸弹信息的存储地。</p><span id="more"></span><h2 id="xdbg查找"><a href="#xdbg查找" class="headerlink" title="xdbg查找"></a>xdbg查找</h2><h3 id="定位查找的函数"><a href="#定位查找的函数" class="headerlink" title="定位查找的函数"></a>定位查找的函数</h3><p>扫雷的游戏界面是一个二维的矩阵，而在某个地方显示图像会需要用到beginpaint并且以endpaint结束。所以尝试去定位此。而猜测扫雷界面一次性显示，使用了双缓存技术，所以可以尝试去定位bitblt。<br>beginpaint：为指定窗口做传输信息的准备，向系统提交显示图像的申请，在beginpaint返回携带显示资源句柄，可以调用函数进行图像显示。<br>endpaint：作为传输结束的标志，因为beginpaint后该显示卡处于独占的状态，需要以此为标志进行释放。<br>双缓存：也就是先在内存准备好需要展示的内容，而后一次性读取显示。<br>bitblt：位块传输，也就是从源头地点中将一个矩形区的图像转到目标地点中同样大小的矩形区。语法为<code>BitBlt (hdcDst, xDst, yDst, cx, cy, hdcSrc, xSrc, ySrc, dwROP) ;</code></p><h3 id="查找过程"><a href="#查找过程" class="headerlink" title="查找过程"></a>查找过程</h3><p>首先是找到这几个的所在地，打断点观察。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.1.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.2.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.4.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.3.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.5.png"><br>在xdbg中debug，因为断点打在了显示图像的函数上所以一开始窗口显示不出来，执行第三次bitblt才会显示出出窗口。且鼠标移到上面是缓存图标无法点击移动。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.7.png"><br>运行以后会出现一个基础的页面，在begin运行后出现了计时和计数，可以发现这一部分和扫雷地图是分开加载的。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.8.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.9.png"><br>而继续运行bitblt发现出现了一个扫雷的格子，已经开始加载地图了。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.10.png"><br>然后经过单步运行后发现了是在call 后续的bitblt后出现的这个格子，且在此之前入栈了9个未知量。猜测需要的信息就在被入栈的地址中。所以转向去看段地址ebx的内容。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.11.png"><br>在ebx的内容中给可以看见of，8f，10因为ebx缪按存储的段地址指向的10，后续出现也具有规律，推测是每行的边距。0f个数比较多推测是空白地方，8f是炸弹。而在上面还有一行，63刚好对应99个炸弹数目，1e，10是长宽，后续有待验证。这时虽然没有显示完但是该有的数据都有了，所以可以确定是双缓存。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.12.png"><br>在全部加载完成后再执行endpaint，而后扫雷界面正常显示，不再出现缓存图标。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.13.png"><br>点击其中一个方块以后，立刻转到bitblt对界面进行修改，且在尚未显示出来的时候内存中的数字已经发生变化。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.14.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.16.png"><br>而后在进行单步执行，该处变为41，再执行后扫雷该地区显示出1。而8f地区再点击后也经过过程变成地雷，对于数字的猜测实现。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.17.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.18.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.19.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.20.png"><br>接下来又开一局对41这个数字进行猜测，在内存显示为42的在图中显示为2.可以认为40为初始值，计算出附近雷的数量后改变内存的值来索引需要显示出的数字的素材。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/1.21.png"><br>至此对扫雷的分析差不多结束了。</p><h2 id="CE分析扫雷"><a href="#CE分析扫雷" class="headerlink" title="CE分析扫雷"></a>CE分析扫雷</h2><h3 id="找到可疑的内存地址并分析其内存"><a href="#找到可疑的内存地址并分析其内存" class="headerlink" title="找到可疑的内存地址并分析其内存"></a>找到可疑的内存地址并分析其内存</h3><p>先导入运行中的扫雷程序，并进行初始扫描。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/2.1.png"><br>初始扫描后，点击某一个方块，不是雷就扫描变化的，是就扫描不变的，最后锁定到一个地址。目标其实就是找地图所在的区域，变化或者不变化在不同的情况下都有可能在地图中出现，选择其一是为了更简单的找到其所在地。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/2.2.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/2.3.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/2.4.png"><br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/2.5.png"><br>转向最后一个地址的内存查看，可以发现和xdbg找到的内存是一样的。<br><img src="/2023/09/28/%E7%BB%8F%E5%85%B8%E5%A4%8D%E7%8E%B0%E4%B9%8B%E6%89%AB%E9%9B%B7%E4%B8%8A/2.6.png"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;上半部分为找到扫雷的地图，也就是炸弹信息的存储地。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="逆向自学之路" scheme="http://librariany.cn/categories/%E9%80%86%E5%90%91%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>xdbg食品检测记录之五</title>
