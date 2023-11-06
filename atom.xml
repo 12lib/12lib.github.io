@@ -6,7 +6,7 @@
   <link href="http://librariany.cn/atom.xml" rel="self"/>
   
   <link href="http://librariany.cn/"/>
-  <updated>2023-09-28T11:29:40.869Z</updated>
+  <updated>2023-11-06T06:42:26.682Z</updated>
   <id>http://librariany.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buuctf_reserve</title>
+    <link href="http://librariany.cn/2023/11/06/buuctf-reserve/"/>
+    <id>http://librariany.cn/2023/11/06/buuctf-reserve/</id>
+    <published>2023-11-06T06:42:26.000Z</published>
+    <updated>2023-11-06T06:42:26.682Z</updated>
+    
+    <content type="html"><![CDATA[<p>buuctf reserve板块的一些write up</p><span id="more"></span><h3 id="reserve1"><a href="#reserve1" class="headerlink" title="reserve1"></a>reserve1</h3><p>先运行程序看看是个什么东西,然后看看是多少位的程序<br><img src="/2023/11/06/buuctf-reserve/1.1.png"><br><img src="/2023/11/06/buuctf-reserve/1.2.png"><br>进入ida，我们在一开始运行该程序的时候看见了输入flag的提示，所以我们可以直接尝试搜索flag字符串，这里用快捷键shift+f12查看字符串，然后搜索字符串。<br><img src="/2023/11/06/buuctf-reserve/1.3.png"><br><img src="/2023/11/06/buuctf-reserve/1.4.png"><br>然后进入我们找到的地方，这里写的错误flag，可见这哥字符串调用附近又flag判断，我们点进去看看，点开后选择交叉引用，进入引用这个的程序处。<br><img src="/2023/11/06/buuctf-reserve/1.5.png"><br><img src="/2023/11/06/buuctf-reserve/1.6.png"><br><img src="/2023/11/06/buuctf-reserve/1.7.png"><br><img src="/2023/11/06/buuctf-reserve/1.8.png"><br>进入这个地方后，我们稍微看看这个逻辑。再引用wrong flag之前有一个分叉，应该是检测是否为正确的flag，调用了strncmp来比对正确flag和输入值。我们可以发现str1是输入，str2按理来讲应该是正确flag，但是hello_world输入不对。所以我们快捷键tab一下，进入伪代码看看怎么个事儿。<br>然后我们就可以发现，这里面在1，2框处都有写道str2.1框是一个简单的比较和if语句。而在2框我们发现这里对str2进行了处理，这里是字符串等于111更换成48，直接r一下查看ASCII表的值。发现是字母o替换成了数字0，所以提交flag{hell0_w0rld}.<br><img src="/2023/11/06/buuctf-reserve/1.9.png"><br><img src="/2023/11/06/buuctf-reserve/1.10.png"></p><h3 id="reserve2"><a href="#reserve2" class="headerlink" title="reserve2"></a>reserve2</h3><p>首先看一下文件类型，是elf文件拖进ida看一眼<br><img src="/2023/11/06/buuctf-reserve/2.1.png"><br>看见flag照样进去看一眼代码<br><img src="/2023/11/06/buuctf-reserve/2.2.png"><br>分析一下发现和上一题一眼是更改了一部分flag,将i和r更换成了1<br><img src="/2023/11/06/buuctf-reserve/2.3.png"><br>去寻找flag所在，在上一个界面进入内存界面,发现flag那个位置附近有一个带有半个括号的类似于flag的东西，将flag后面的78h改为字符发现是另一半括号，提交答案出现啦<br><img src="/2023/11/06/buuctf-reserve/2.4.png"><br><img src="/2023/11/06/buuctf-reserve/2.5.png"><br><img src="/2023/11/06/buuctf-reserve/2.6.png"></p><h3 id="新年快乐"><a href="#新年快乐" class="headerlink" title="新年快乐"></a>新年快乐</h3><p>首先看一眼壳,没壳。看一眼32位windows.再点开看一眼程序本体<br><img src="/2023/11/06/buuctf-reserve/3.1.png"><br><img src="/2023/11/06/buuctf-reserve/3.2.png"><br>进ida看一眼其代码,可以发现选择Y和N的程序。v4是输入的Y或者N，尝试使用没有被处理的v5作为flag，过了.<br><img src="/2023/11/06/buuctf-reserve/3.3.png"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;buuctf reserve板块的一些write up&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="逆向自学之路" scheme="http://librariany.cn/categories/%E9%80%86%E5%90%91%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/"/>
+    
+    
+    <category term="ctf" scheme="http://librariany.cn/tags/ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>经典复现之扫雷</title>
