@@ -6,7 +6,7 @@
   <link href="http://librariany.cn/atom.xml" rel="self"/>
   
   <link href="http://librariany.cn/"/>
-  <updated>2024-01-27T10:36:08.939Z</updated>
+  <updated>2024-02-26T08:24:41.763Z</updated>
   <id>http://librariany.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buuctf_reserve -2</title>
+    <link href="http://librariany.cn/2024/01/28/buuctf-reserve-2/"/>
+    <id>http://librariany.cn/2024/01/28/buuctf-reserve-2/</id>
+    <published>2024-01-28T11:37:52.000Z</published>
+    <updated>2024-02-26T08:24:41.763Z</updated>
+    
+    <content type="html"><![CDATA[<p>buuctf reserve板块部分wp的第二弹，持续更新ing</p><span id="more"></span><h3 id="GXYCTF2019-luck-guy"><a href="#GXYCTF2019-luck-guy" class="headerlink" title="[GXYCTF2019]luck_guy"></a>[GXYCTF2019]luck_guy</h3><p>例行查壳，64位的<br><img src="/2024/01/28/buuctf-reserve-2/1.1.png"><br>直接进主函数，然后一路找到flag位置<br><img src="/2024/01/28/buuctf-reserve-2/1.2.png"><br><img src="/2024/01/28/buuctf-reserve-2/1.3.png"><br>输出的是s，而s是由f1和f2位置存储的信息构成的，f1直接点进去就是注释的内容，f2则根据下面的case4，5有关f2的操作来确定内容。f2先是被case4存进内容，而此处\x7F是代表这是16进制，所以逆序存进去之后为注释内容。case5对存进去的字符串进行了处理。<br><img src="/2024/01/28/buuctf-reserve-2/1.4.png"><br>将逆序内容在脚本中进行处理即可得出f2<br><img src="/2024/01/28/buuctf-reserve-2/1.5.png"><br>不得不提的是这个题目和这个答案感觉在给我喂刀，特意搜了一下solar一般表示英俊是男名，我承认ctf比一般的虐文小说好看<br><img src="/2024/01/28/buuctf-reserve-2/1.6.png"></p><h3 id="JustRE"><a href="#JustRE" class="headerlink" title="JustRE"></a>JustRE</h3><p>32位<br><img src="/2024/01/28/buuctf-reserve-2/2.1.png"><br>在字符串搜索没有看见flag和key等，翻了一下看见一个像flag的<br><img src="/2024/01/28/buuctf-reserve-2/2.2.png"><br>交叉引用查看函数<br><img src="/2024/01/28/buuctf-reserve-2/2.3.png"><br>sprintf将内容复制到格式化字符串中，也就是19999和0复制进BDJ中替换%d，存入String<br><img src="/2024/01/28/buuctf-reserve-2/2.4.png"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;buuctf reserve板块部分wp的第二弹，持续更新ing&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="逆向自学之路" scheme="http://librariany.cn/categories/%E9%80%86%E5%90%91%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF/"/>
+    
+    
+    <category term="ctf" scheme="http://librariany.cn/tags/ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>buuctf_reserve</title>
