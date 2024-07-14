@@ -51,4 +51,16 @@ if处的string解决了，来看strcmp的内容v4和v5在前面都经过了40100
 ![](./buuctf-reserve-2/3.11.png) ![](./buuctf-reserve-2/3.12.png)
 分析如注释，其中WP已经出现了所以尝试WP1放在前面。
 ![](./buuctf-reserve-2/3.13.png)
-
+### 简单注册器
+看一眼下载的是安卓的安装包，那么安装试一下看效果
+![](./buuctf-reserve-2/4.1.png)
+![](./buuctf-reserve-2/4.2.png)
+似乎是根据输入来输出所需要的注册码，进jadx找一下
+![](./buuctf-reserve-2/4.3.png)
+![](./buuctf-reserve-2/4.4.png)
+![](./buuctf-reserve-2/4.5.png)
+根据搜索到的内容确定位置到这个函数，在这个函数最后他输出了flag
+这里有两种方式第一种根据第一次if的判断随意编写一个结尾为a，第二位为b长度为32，并且符合第一位加第三位为48+56
+第二种方式是将第二个if所给出的字符串按照第二个if的规则进行处理直接得到flag
+![](./buuctf-reserve-2/4.6.png)
+![](./buuctf-reserve-2/4.7.png)
