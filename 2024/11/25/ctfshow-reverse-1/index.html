@@ -20,37 +20,37 @@
     var CONFIG = {"hostname":"librariany.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="ctfshow reverse板块部分wp的第一弹，持续更新ing  勒索病毒查壳，32位进程序看一眼，发现要打开几个文件，但是事实上我们没有flag文件，只有enflag，而猜测enflag就是加密后的falg，所以把enflag复制改名flag试试 a &#x3D; &quot;DH~mqqvqxB^||zll@Jq~jkwpmvez&amp;#123;&quot; flag &#x3D; &quot;&quot; fo">
+  <meta name="description" content="ctfshow reverse板块部分wp的第一弹，持续更新ing">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ctfshow-reverse-1">
-<meta property="og:url" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/index.html">
+<meta property="og:url" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/index.html">
 <meta property="og:site_name" content="librarian">
-<meta property="og:description" content="ctfshow reverse板块部分wp的第一弹，持续更新ing  勒索病毒查壳，32位进程序看一眼，发现要打开几个文件，但是事实上我们没有flag文件，只有enflag，而猜测enflag就是加密后的falg，所以把enflag复制改名flag试试 a &#x3D; &quot;DH~mqqvqxB^||zll@Jq~jkwpmvez&amp;#123;&quot; flag &#x3D; &quot;&quot; fo">
+<meta property="og:description" content="ctfshow reverse板块部分wp的第一弹，持续更新ing">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/1.0.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/1.1.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/1.2.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/1.3.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/1.4.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.0.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.1.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.2.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.3.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.4.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.5.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.6.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.7.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.8.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.9.png">
-<meta property="og:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/2.10.png">
-<meta property="article:published_time" content="2024-11-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-11-24T16:58:55.442Z">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/1.0.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/1.1.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/1.2.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/1.3.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/1.4.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.0.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.1.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.2.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.3.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.4.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.5.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.6.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.7.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.8.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.9.png">
+<meta property="og:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/2.10.png">
+<meta property="article:published_time" content="2024-11-24T17:03:26.000Z">
+<meta property="article:modified_time" content="2024-11-24T17:03:42.843Z">
 <meta property="article:author" content="y">
 <meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://librariany.cn/2024/11/18/ctfshow-reverse-1/1.0.png">
+<meta name="twitter:image" content="http://librariany.cn/2024/11/25/ctfshow-reverse-1/1.0.png">
 
-<link rel="canonical" href="http://librariany.cn/2024/11/18/ctfshow-reverse-1/">
+<link rel="canonical" href="http://librariany.cn/2024/11/25/ctfshow-reverse-1/">
 
 
 <script id="page-configurations">
@@ -184,7 +184,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://librariany.cn/2024/11/18/ctfshow-reverse-1/">
+    <link itemprop="mainEntityOfPage" href="http://librariany.cn/2024/11/25/ctfshow-reverse-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -206,16 +206,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-11-18 00:00:00" itemprop="dateCreated datePublished" datetime="2024-11-18T00:00:00+08:00">2024-11-18</time>
+              <time title="创建时间：2024-11-25 01:03:26 / 修改时间：01:03:42" itemprop="dateCreated datePublished" datetime="2024-11-25T01:03:26+08:00">2024-11-25</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-25 00:58:55" itemprop="dateModified" datetime="2024-11-25T00:58:55+08:00">2024-11-25</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -238,8 +232,8 @@
 
       
         <p>ctfshow reverse板块部分wp的第一弹，持续更新ing</p>
-<!-- moer -->
-<h3 id="勒索病毒"><a href="#勒索病毒" class="headerlink" title="勒索病毒"></a>勒索病毒</h3><p>查壳，32位<br><img src="/2024/11/18/ctfshow-reverse-1/1.0.png"><br>进程序看一眼，发现要打开几个文件，但是事实上我们没有flag文件，只有enflag，而猜测enflag就是加密后的falg，所以把enflag复制改名flag试试<br><img src="/2024/11/18/ctfshow-reverse-1/1.1.png"><br><img src="/2024/11/18/ctfshow-reverse-1/1.2.png"></p>
+<span id="more"></span>
+<h3 id="勒索病毒"><a href="#勒索病毒" class="headerlink" title="勒索病毒"></a>勒索病毒</h3><p>查壳，32位<br><img src="/2024/11/25/ctfshow-reverse-1/1.0.png"><br>进程序看一眼，发现要打开几个文件，但是事实上我们没有flag文件，只有enflag，而猜测enflag就是加密后的falg，所以把enflag复制改名flag试试<br><img src="/2024/11/25/ctfshow-reverse-1/1.1.png"><br><img src="/2024/11/25/ctfshow-reverse-1/1.2.png"></p>
 <pre><code>a = &quot;DH~mqqvqxB^||zll@Jq~jkwpmvez&#123;&quot;
 flag = &quot;&quot;
 for i in range(0,len(a)):
@@ -248,8 +242,8 @@ print(flag)
 if len(a) == len(flag):
     print(&quot;yes&quot;)
 </code></pre>
-<p>得到如下图的密钥<br><img src="/2024/11/18/ctfshow-reverse-1/1.3.png"><br>运行程序后会发现那个以读模式打开的enflag已经改变了里面就是flag<br><img src="/2024/11/18/ctfshow-reverse-1/1.4.png"><br>![](.&#x2F;ctfshow-reverse-1&#x2F; 1.5.png)<br>（可以发现程序里面似乎有一段很多余的东西，因为这个密钥出来我第一反应是这种纯白字体的报错没见过搜一下</p>
-<h3 id="武穆遗书"><a href="#武穆遗书" class="headerlink" title="武穆遗书"></a>武穆遗书</h3><p>查壳,脱壳，32位<br><img src="/2024/11/18/ctfshow-reverse-1/2.0.png"><br><img src="/2024/11/18/ctfshow-reverse-1/2.1.png"><br><img src="/2024/11/18/ctfshow-reverse-1/2.2.png"><br>进ida看一下<br><img src="/2024/11/18/ctfshow-reverse-1/2.3.png"><br>如果按照正常流程一直分析下去真的很套娃，所以这一题尝试一下动态调试<br><img src="/2024/11/18/ctfshow-reverse-1/2.4.png"><br><img src="/2024/11/18/ctfshow-reverse-1/2.5.png"><br><img src="/2024/11/18/ctfshow-reverse-1/2.6.png"><br><img src="/2024/11/18/ctfshow-reverse-1/2.7.png"><br>断点打在最后的对比字符串这里，然后开始调试，在程序输入123然后回车，回到ida界面中查看<br><img src="/2024/11/18/ctfshow-reverse-1/2.8.png"><br><img src="/2024/11/18/ctfshow-reverse-1/2.9.png"><br>同样的tap操作以后进入伪代码界面，然后可以看见这里的颜色变了，鼠标挪到v4上就可以查看v4的内容了<br><img src="/2024/11/18/ctfshow-reverse-1/2.10.png"><br>flag{fmf_is_great!}</p>
+<p>得到如下图的密钥<br><img src="/2024/11/25/ctfshow-reverse-1/1.3.png"><br>运行程序后会发现那个以读模式打开的enflag已经改变了里面就是flag<br><img src="/2024/11/25/ctfshow-reverse-1/1.4.png"><br>![](.&#x2F;ctfshow-reverse-1&#x2F; 1.5.png)<br>（可以发现程序里面似乎有一段很多余的东西，因为这个密钥出来我第一反应是这种纯白字体的报错没见过搜一下</p>
+<h3 id="武穆遗书"><a href="#武穆遗书" class="headerlink" title="武穆遗书"></a>武穆遗书</h3><p>查壳,脱壳，32位<br><img src="/2024/11/25/ctfshow-reverse-1/2.0.png"><br><img src="/2024/11/25/ctfshow-reverse-1/2.1.png"><br><img src="/2024/11/25/ctfshow-reverse-1/2.2.png"><br>进ida看一下<br><img src="/2024/11/25/ctfshow-reverse-1/2.3.png"><br>如果按照正常流程一直分析下去真的很套娃，所以这一题尝试一下动态调试<br><img src="/2024/11/25/ctfshow-reverse-1/2.4.png"><br><img src="/2024/11/25/ctfshow-reverse-1/2.5.png"><br><img src="/2024/11/25/ctfshow-reverse-1/2.6.png"><br><img src="/2024/11/25/ctfshow-reverse-1/2.7.png"><br>断点打在最后的对比字符串这里，然后开始调试，在程序输入123然后回车，回到ida界面中查看<br><img src="/2024/11/25/ctfshow-reverse-1/2.8.png"><br><img src="/2024/11/25/ctfshow-reverse-1/2.9.png"><br>同样的tap操作以后进入伪代码界面，然后可以看见这里的颜色变了，鼠标挪到v4上就可以查看v4的内容了<br><img src="/2024/11/25/ctfshow-reverse-1/2.10.png"><br>flag{fmf_is_great!}</p>
 
     </div>
 
@@ -268,13 +262,10 @@ if len(a) == len(flag):
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/07/20/buuctf-reserve-3/" rel="prev" title="buuctf-reverse-3">
-      <i class="fa fa-chevron-left"></i> buuctf-reverse-3
+    <a href="/2024/11/25/docker%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97-fake/" rel="prev" title="docker下载指南(fake">
+      <i class="fa fa-chevron-left"></i> docker下载指南(fake
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/11/25/docker%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97-fake/" rel="next" title="docker下载指南(fake">
-      docker下载指南(fake <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
